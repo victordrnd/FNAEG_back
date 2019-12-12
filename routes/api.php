@@ -54,7 +54,16 @@ Route::group(['prefix' => 'fabricant'], function(){
   Route::delete('/delete', 'FabricantController@delete');
 });
 
+Route::group(['prefix' => 'order'], function(){
+  Route::post('/create', 'CommandeController@create');
+});
 
+Route::group(['prefix' => 'inventory'], function(){
+  Route::get('/', 'InventaireController@getAll');
+  Route::post('/create', 'InventaireController@create');
+});
+
+Route::post('order/create', 'CommandeController@create');
 
 
 

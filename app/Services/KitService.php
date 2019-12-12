@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Kit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use App\Fabricant;
+use Illuminate\Support\Facades\Storage;
 
 class KitService
 {
@@ -32,15 +34,14 @@ class KitService
         }
 
         if ($req->has('stock')) {
+
             if ($req->stock) {
                 $kit->where('stock', '>', 0);
-            } else {
-                $kit->where('stock', 0);
             }
         }
-        if ($req->has('fabricants')) {
-            $kit->whereHas('fabricants', function ($query) use ($req) {
-                $query->whereIn('fabricants.CodeF', $req->input('fabricants'));
+        if ($req->has('fabricants') && !empty($req->fabricants)) {
+            $kit->whereHas('fabricant', function ($query) use ($req) {
+                $query->whereIn('CodeF', $req->fabricants);
             });
         }
         if ($req->has('orderBy')) {
@@ -109,7 +110,9 @@ class KitService
         $xml->endElement();
         $xml->endDocument();
         $contents = $xml->outputMemory();
-        return $contents;
+        $link = 'kits.xml';
+        Storage::disk('public')->put($link, $contents);
+        return Storage::disk('public')->path($link);;
     }
 
 
