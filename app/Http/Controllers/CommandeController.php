@@ -28,4 +28,13 @@ class CommandeController extends Controller
         $commandes = $this->commandeService::getAll();
         return Controller::responseJson(200, "Les commandes ont été retournés", $commandes);
     }
+
+    public function update(Request $req){
+        try{
+            $commande = $this->commandeService::update($req);
+        }catch(\Exception $e){
+            return Controller::responseJson(422, "Une erreur est survenue lors de la mise à jour");
+        }
+        return Controller::responseJson(200, "La commande a correctement été mis à jour", $commande);
+    }
 }

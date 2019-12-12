@@ -9,6 +9,11 @@ use Carbon\Carbon;
 
 class CommandeService
 {
+    public static function getAll(){
+        return Commande::all();
+    }
+
+
     public static function create(Request $req)
     {
         return Commande::create([
@@ -18,6 +23,22 @@ class CommandeService
             'Qte' => $req->Qte
         ]); 
     }
+
+    public static function update(Request $req){
+        $commande = Commande::where('CodeKit', $req->CodeKit)
+                    ->where('CodeLab', 'FNAEG')
+                    ->where('DateCde', 'DateCde')
+                    ->firstOrFail();
+
+        $commande->update([
+            'Qte' => $req->Qte
+        ]);
+        return $commande;
+
+    }   
+
+
+
 
 
 }

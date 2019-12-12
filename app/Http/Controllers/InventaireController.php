@@ -18,7 +18,7 @@ class InventaireController extends Controller
 
     public function create(CreateInventaireRequest $req){
         $inventaire = $this->inventaireService::create($req);
-        return Controller::responseJson(200, "L'inventaire a correment été crée", $inventaire); 
+        return Controller::responseJson(200, "L'inventaire a correctement été crée", $inventaire); 
     }
 
 
