@@ -26,7 +26,7 @@ class InventaireService {
     }
 
     public static function find($id){
-        return Inventaire::where('id', $id)->with('enregistrements')->first();
+        return Inventaire::where('id', $id)->with('enregistrements')->firstOrFail();
     }
 
 

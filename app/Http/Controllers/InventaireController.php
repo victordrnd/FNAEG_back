@@ -7,6 +7,7 @@ use App\Inventaire;
 use App\Enregistrement;
 use App\Http\Requests\Inventaire\CreateInventaireRequest;
 use App\Services\InventaireService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class InventaireController extends Controller
 {
@@ -14,6 +15,15 @@ class InventaireController extends Controller
 
     public function __construct(InventaireService $inventaireService){
         $this->inventaireService = $inventaireService;
+    }
+
+    public function find(Request $req){
+        try{
+            $inventaire = $this->inventaireService::find($req->id);
+        }catch(ModelNotFoundException $e){
+            return Controller::responseJson(404, "L'inventaire demandé n'existe pas");
+        }
+        return Controller::responseJson(200, "L'inventaire a été retourné", $inventaire);
     }
 
     public function create(CreateInventaireRequest $req){
