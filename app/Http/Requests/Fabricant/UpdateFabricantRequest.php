@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Fabricant;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class UpdateFabricantRequest extends FormRequest
+class UpdateFabricantRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

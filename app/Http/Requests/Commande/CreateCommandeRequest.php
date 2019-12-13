@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Commande;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class CreateCommandeRequest extends FormRequest
+class CreateCommandeRequest extends APiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

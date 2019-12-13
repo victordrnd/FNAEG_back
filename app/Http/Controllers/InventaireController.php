@@ -28,5 +28,11 @@ class InventaireController extends Controller
     }
 
 
+    public function delete($id){
+        $this->inventaireService::delete($id);
+        return Controller::responseJson(200, "L'inventaire a correctement été supprimé");
+    }
+
+
 
 }

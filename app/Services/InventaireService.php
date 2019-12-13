@@ -3,12 +3,13 @@
 namespace App\Services;
 
 use App\Inventaire;
-use App\Enregistrements;
+use App\Enregistrement;
+use Illuminate\Http\Request;
 
 class InventaireService {
 
     public static function getAll(){
-        return Inventaire::where('created_at', '!=', null)->with('enregistrements')->get();
+        return Inventaire::where('created_at', '!=', null)->orderBy('created_at', 'DESC')->with('enregistrements')->get();
     }
 
 
@@ -25,6 +26,12 @@ class InventaireService {
     }
 
     public static function find($id){
-        return Inventaire::where('id', $inventaire->id)->with('enregistrements')->first();
+        return Inventaire::where('id', $id)->with('enregistrements')->first();
+    }
+
+
+    public static function delete($id){
+        Enregistrement::where('inventaire_id', $id)->delete();
+        Inventaire::destroy($id);
     }
 }

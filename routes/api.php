@@ -61,6 +61,7 @@ Route::group(['prefix' => 'order'], function(){
 Route::group(['prefix' => 'inventory'], function(){
   Route::get('/', 'InventaireController@getAll');
   Route::post('/create', 'InventaireController@create');
+  Route::delete('/{id}/delete', 'InventaireController@delete');
 });
 
 Route::post('order/create', 'CommandeController@create');

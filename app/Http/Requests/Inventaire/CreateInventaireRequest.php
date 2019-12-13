@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Inventaire;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class CreateInventaireRequest extends FormRequest
+class CreateInventaireRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
