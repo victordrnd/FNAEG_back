@@ -9,13 +9,19 @@ use Illuminate\Http\Request;
 class InventaireService {
 
     public static function getAll(){
-        return Inventaire::where('created_at', '!=', null)->orderBy('created_at', 'DESC')->with('enregistrements')->get();
+        return Inventaire::orderBy('created_at', 'DESC')
+            ->with('enregistrements')
+            ->get()
+            ->map->format();
     }
 
 
     public static function create(Request $req){
         $inventaire = Inventaire::create();
         foreach($req->kits as $kit){
+            Kit::find($kit['CodeKit'])->update([
+                'Stock' => $kit['Stock']
+            ]);
             Enregistrement::create([
                 'inventaire_id' => $inventaire->id,
                 'CodeKit' => $kit['CodeKit'],
@@ -34,4 +40,8 @@ class InventaireService {
         Enregistrement::where('inventaire_id', $id)->delete();
         Inventaire::destroy($id);
     }
+
+
+
+ 
 }
