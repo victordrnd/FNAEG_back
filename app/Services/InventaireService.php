@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Inventaire;
 use App\Enregistrement;
+use App\Kit;
 use Illuminate\Http\Request;
 
 class InventaireService {
