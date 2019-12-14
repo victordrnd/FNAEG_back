@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class InventaireService {
 
     public static function getAll(){
-        return Inventaire::where('created_at', '!=', null)->orderBy('created_at', 'DESC')->with('enregistrements')->get();
+        return Inventaire::orderBy('created_at', 'DESC')
+            ->with('enregistrements')
+            ->get()
+            ->map->format();
     }
 
 
@@ -34,4 +37,8 @@ class InventaireService {
         Enregistrement::where('inventaire_id', $id)->delete();
         Inventaire::destroy($id);
     }
+
+
+
+ 
 }

@@ -19,7 +19,6 @@ class CreateEnregistrementsTable extends Migration
             $table->string('CodeKit', 30);
             $table->integer('Stock')->nullable();
             $table->foreign('inventaire_id')->references('id')->on('inventaires');
-            $table->foreign('CodeKit')->references('CodeKit')->on('kits');
             $table->timestamps();
         });
     }
