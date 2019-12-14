@@ -19,6 +19,9 @@ class InventaireService {
     public static function create(Request $req){
         $inventaire = Inventaire::create();
         foreach($req->kits as $kit){
+            Kit::find($kit['CodeKit'])->update([
+                'Stock' => $kit['Stock']
+            ]);
             Enregistrement::create([
                 'inventaire_id' => $inventaire->id,
                 'CodeKit' => $kit['CodeKit'],
