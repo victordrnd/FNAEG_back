@@ -4,7 +4,7 @@ namespace App\Http\Requests\Kit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchKitRequest extends FormRequest
+class ImportKitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class SearchKitRequest extends FormRequest
     public function rules()
     {
         return [
-            'min' => 'sometimes|numeric',
-            'max' => 'sometimes|numeric',
-            'stock' => 'sometimes|boolean',
-            'fabricants.CodeF' => 'sometimes|exists:fabricants,CodeF',
-            'ordersBy' => 'sometimes|array'
+            'file' => 'required|file|mimetypes:text/xml'
         ];
     }
 }

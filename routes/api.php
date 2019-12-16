@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 Route::post('auth/signup',     'AuthController@signup');
 Route::post('auth/login',      'AuthController@login');
 
- Route::group(['middleware' => 'jwt.verify'], function () {
+Route::group(['middleware' => 'jwt.verify'], function () {
   Route::get('/auth/current',  'AuthController@getCurrentUser');
 
   Route::group(['prefix' => 'users'], function () {
@@ -31,7 +31,8 @@ Route::post('auth/login',      'AuthController@login');
   });
 });
 
-Route::group(['prefix' => 'kit'], function() {
+
+Route::group(['prefix' => 'kit'], function () {
   Route::get('/',               'KitController@getAll');
   Route::get('/paginate',       'KitController@getAllWithPagination');
   Route::get('/export',         'KitController@export');
@@ -43,31 +44,27 @@ Route::group(['prefix' => 'kit'], function() {
   Route::delete('/delete',      'KitController@delete');
 });
 
-Route::group(['prefix' => 'fabricant'], function(){
+Route::group(['prefix' => 'fabricant'], function () {
   Route::get('/',               'FabricantController@getAll');
   Route::get('/paginate',       'FabricantController@paginate');
   Route::post('/',              'FabricantController@find');
-  Route::post('/create' ,       'FabricantController@create');
+  Route::post('/create',       'FabricantController@create');
   Route::put('/update',         'FabricantController@update');
   Route::delete('/delete',      'FabricantController@delete');
 });
 
-Route::group(['prefix' => 'order'], function(){
+Route::group(['prefix' => 'order'], function () {
   Route::post('/create',        'CommandeController@create');
 });
 
-Route::group(['prefix' => 'inventory'], function(){
+Route::group(['prefix' => 'inventory'], function () {
   Route::get('/',               'InventaireController@getAll');
   Route::post('/',              'InventaireController@find');
   Route::post('/create',        'InventaireController@create');
   Route::delete('/{id}/delete', 'InventaireController@delete');
 });
 
-Route::group(['prefix' => 'record'], function(){
+Route::group(['prefix' => 'record'], function () {
   Route::post('/update',        'EnregistrementController@update');
   Route::delete('/delete',      'EnregistrementController@delete');
 });
-
-
-
-

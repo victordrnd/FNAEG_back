@@ -46,7 +46,6 @@ class KitService
         }
         if ($req->has('ordersBy')) {
             foreach ($req->ordersBy as $item) {
-                dd($item['key']);die;
                 if (Schema::hasColumn('kits', $item['key'])) {
                     $kit->orderBy($item['key'], $item['value']);
                 }
@@ -119,7 +118,7 @@ class KitService
 
     public static function import(Request $req)
     {
-        $xmlFile = $req->file('stock');
+        $xmlFile = $req->file('file');
         $xmlContent = file_get_contents($xmlFile);
         $xml = simplexml_load_string($xmlContent);
         foreach ($xml->Kit as $kitNode) {

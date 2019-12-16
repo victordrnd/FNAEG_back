@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Kit\CreateKitRequest;
 use App\Http\Requests\Kit\CodeKitRequest;
+use App\Http\Requests\Kit\ImportKitRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\Kit\UpdateKitRequest;
 use Illuminate\Support\Facades\Response;
@@ -95,7 +96,7 @@ class KitController extends Controller{
     }
 
 
-    public function import(Request $req){
+    public function import(ImportKitRequest $req){
        $this->kitService::import($req);
        $kits = $this->kitService::paginate();
         return Controller::responseJson(200 ,"Les kits ont été mis à jour", $kits);
