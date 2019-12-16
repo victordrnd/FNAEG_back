@@ -44,10 +44,11 @@ class KitService
                 $query->whereIn('CodeF', $req->fabricants);
             });
         }
-        if ($req->has('orderBy')) {
-            foreach ($req->orderBy as $column) {
-                if (Schema::hasColumn('kits', $column)) {
-                    $kit->orderBy($column, 'DESC');
+        if ($req->has('ordersBy')) {
+            foreach ($req->ordersBy as $item) {
+                dd($item['key']);die;
+                if (Schema::hasColumn('kits', $item['key'])) {
+                    $kit->orderBy($item['key'], $item['value']);
                 }
             }
         }

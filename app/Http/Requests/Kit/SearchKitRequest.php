@@ -28,8 +28,8 @@ class SearchKitRequest extends FormRequest
             'max' => 'sometimes|numeric',
             'stock' => 'sometimes|boolean',
             'fabricants.CodeF' => 'sometimes|exists:fabricants,CodeF',
-            'orderBy' => 'sometimes|array',
-            'orderBy.*' => 'sometimes|string'
+            'ordersBy' => 'sometimes|array',
+            'ordersBy.*' => 'sometimes|string'
         ];
     }
 }
