@@ -46,7 +46,7 @@ class FabricantController extends Controller
 
     public function create(CreateFabricantRequest $req){
         try{
-            $this->fabricantService::create($req);
+            $fabricant = $this->fabricantService::create($req);
         }catch(\Exception $e){
             return Controller::responseJson(422, "Une erreur est survenue lors de la création.");
         }
