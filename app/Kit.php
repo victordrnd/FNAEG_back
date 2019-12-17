@@ -18,7 +18,6 @@ class Kit extends Model
 
     protected $keyType = 'string';
 
-
     public function fabricant(){
         return $this->belongsTo(Fabricant::class, "CodeF");
     }

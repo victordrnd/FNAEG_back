@@ -51,6 +51,8 @@ Route::group(['prefix' => 'fabricant'], function () {
   Route::post('/create',       'FabricantController@create');
   Route::put('/update',         'FabricantController@update');
   Route::delete('/delete',      'FabricantController@delete');
+  Route::get('/minimized',      'FabricantController@minimized');
+  Route::post('/filter',        'FabricantController@filter');
 });
 
 Route::group(['prefix' => 'order'], function () {

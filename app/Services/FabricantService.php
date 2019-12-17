@@ -38,4 +38,28 @@ class FabricantService {
         $fabricant->update($req->all());
         return $fabricant;
     }
+
+
+    public static function minimized(){
+        $fabricants = Fabricant::select('CodeF','Nom')->get();
+        return $fabricants;
+    }
+
+    public static function filter(Request $req){
+        $fabricants = (new Fabricant)->newQuery();
+
+        if ($req->has('keyword')) {
+            $keyword = $req->keyword;
+            $fabricants->where('Nom', 'like', "$keyword%");
+        }
+        
+        if ($req->has('ordersBy')) {
+            foreach ($req->ordersBy as $item) {
+                if (Schema::hasColumn('fabricantss', $item['key'])) {
+                    $fabricants->orderBy($item['key'], $item['value']);
+                }
+            }
+        }
+        return $fabricants->with('kits')->paginate()->toArray();
+    }
 }

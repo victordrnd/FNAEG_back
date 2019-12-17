@@ -20,6 +20,6 @@ class Fabricant extends Model
 
 
     public function kits(){
-        return $this->hasMany(Kit::class,'CodeF','CodeKit');
+        return $this->hasMany(Kit::class, 'CodeF','CodeF');
     }
 }

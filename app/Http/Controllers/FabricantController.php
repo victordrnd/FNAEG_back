@@ -62,4 +62,16 @@ class FabricantController extends Controller
         }
         return Controller::responseJson(200, "Le fabricant a correctement été sauvegardé", $fabricant);
     }
+
+
+    public function minimized(){
+        $fabricants = $this->fabricantService::minimized();
+        return Controller::responseJson(200, "Les fabricants ont été retourné", $fabricants);
+    }
+
+
+    public function filter(Request $req){
+        $fabricants = $this->fabricantService::filter($req);
+        return Controller::responseJson(200, "Les fabricants ont été retourné", $fabricants);
+    }
 }
