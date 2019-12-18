@@ -32,8 +32,8 @@ abstract class ApiRequest extends LaravelFormRequest
     {
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(
-            Controller::responseJson(422, "Certains paramètres sont manquants", $errors)
+            Controller::responseJson(422, "Certains paramètres sont manquants ou incorrects", $errors)
         );
-        return Controller::responseJson(422, "Certains paramètres sont manquants", $errors);
+        return Controller::responseJson(422, "Certains paramètres sont manquants ou incorrects", $errors);
     }
 }

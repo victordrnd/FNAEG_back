@@ -11,12 +11,12 @@ class CommandeService
 {
     public static function getAll()
     {
-        return Commande::with('status', 'kits')->get();
+        return Commande::with('status', 'details')->get()->map->format();
     }
 
 
     public static function find($id){
-        return Commande::where('id', $id)->with('status', 'kits')->first();
+        return Commande::where('id', $id)->with('status', 'details')->first();
     }
 
     public static function create(Request $req)
@@ -39,5 +39,12 @@ class CommandeService
 
     public static function update(Request $req)
     {
+        $commande = Commande::findOrFail($req->id);
+        foreach($req->lignes as $ligne){
+            $lignecmd = LigneCommande::where('CodeKit', $ligne['CodeKit'])
+                                    ->where('commande_id', $commande->id)->first();
+            $lignecmd->update(['Qte' => $ligne['Qte']]);
+        }
+        return self::find($commande->id);
     }
 }

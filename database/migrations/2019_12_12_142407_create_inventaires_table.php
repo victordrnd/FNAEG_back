@@ -13,10 +13,10 @@ class CreateInventairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventaires', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        // Schema::create('inventaires', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->timestamps();
+        // });
     }
 
     /**

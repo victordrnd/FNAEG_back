@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\Fabricant\CreateFabricantRequest;
 use App\Http\Requests\Fabricant\UpdateFabricantRequest;
+use App\Http\Requests\Fabricant\FIlterFabricantRequest;
 use App\Http\Requests\Fabricant\CodeFRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\FabricantService;
@@ -70,7 +71,7 @@ class FabricantController extends Controller
     }
 
 
-    public function filter(Request $req){
+    public function filter(FilterFabricantRequest $req){
         $fabricants = $this->fabricantService::filter($req);
         return Controller::responseJson(200, "Les fabricants ont été retourné", $fabricants);
     }

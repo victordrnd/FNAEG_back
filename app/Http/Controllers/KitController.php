@@ -91,7 +91,6 @@ class KitController extends Controller{
     public function export()
     {
         $file = $this->kitService::export();
-        // dd($file);
         return response()->download($file);
     }
 

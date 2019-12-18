@@ -13,9 +13,17 @@ class Commande extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function kits()
-    {
-        //TODO : correct bugs
-        return $this->belongsToMany(Kit::class, 'ligne_commandes', 'commande_id', 'CodeKit');
+    public function details(){
+        return $this->hasMany(LigneCommande::class);
+    }
+
+    public function format(){
+        return [
+            'id' => $this->id,
+            'status' => $this->status->libelle,
+            'details' => $this->details,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
+        ];
     }
 }
