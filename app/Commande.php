@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commande extends Model
 {
-    protected $table = "cdes";
-
-    protected $primaryKey = ['CodeKit', 'CodeLab', 'DateCde'];
-
-    public $timestamps = false;
-
-    protected $fillable = ['CodeKit','CodeLab', 'DateCde', 'Qte'];
+    protected $fillable = ['status_id'];
     
-    public $incrementing = false;
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 
-    protected $keyType = 'string';
-
-
+    public function kits()
+    {
+        return $this->belongsToMany(Kit::class, 'ligne_commandes', 'commande_id', 'CodeKit');
+    }
 }

@@ -24,9 +24,9 @@ class CreateCommandeRequest extends APiRequest
     public function rules()
     {
         return [
-            'CodeKit' => 'required|exists:kits',
-            'CodeLab' => 'required|exists:labos',
-            'Qte' => 'required|integer'
+            'lignes' => 'required|array',
+            'lignes.*.CodeKit' => 'required|exists:kits,CodeKit',
+            'lignes.*.Qte' => 'required|integer'
         ];
     }
 }
