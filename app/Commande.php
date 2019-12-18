@@ -15,6 +15,7 @@ class Commande extends Model
 
     public function kits()
     {
+        //TODO : correct bugs
         return $this->belongsToMany(Kit::class, 'ligne_commandes', 'commande_id', 'CodeKit');
     }
 }
