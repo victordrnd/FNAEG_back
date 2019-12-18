@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Fabricant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class FabricantService {
 
@@ -53,9 +54,10 @@ class FabricantService {
             $fabricants->where('Nom', 'like', "$keyword%");
         }
         
+        
         if ($req->has('ordersBy')) {
             foreach ($req->ordersBy as $item) {
-                if (Schema::hasColumn('fabricantss', $item['key'])) {
+                if (Schema::hasColumn('fabricants', $item['key'])) {
                     $fabricants->orderBy($item['key'], $item['value']);
                 }
             }
