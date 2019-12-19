@@ -16,6 +16,12 @@ class InventaireService {
             ->map->format();
     }
 
+    public static function paginate(){
+        return Inventaire::orderBy('created_at', 'DESC')
+            ->with('enregistrements')
+            ->paginate(5)->toArray();
+    }
+
 
     public static function create(Request $req){
         $inventaire = Inventaire::create();

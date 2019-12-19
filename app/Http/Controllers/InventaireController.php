@@ -38,6 +38,11 @@ class InventaireController extends Controller
         return Controller::responseJson(200, 'Les inventaires ont été retournés', $inventaires);
     }
 
+    public function paginate(){
+        $inventaires = $this->inventaireService::paginate();
+        return Controller::responseJson(200, "Les inventaires ont été retournés", $inventaires);
+    }
+
 
     public function delete($id){
         $this->inventaireService::delete($id);

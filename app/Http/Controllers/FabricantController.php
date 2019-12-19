@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\Fabricant\CreateFabricantRequest;
 use App\Http\Requests\Fabricant\UpdateFabricantRequest;
-use App\Http\Requests\Fabricant\FIlterFabricantRequest;
+use App\Http\Requests\Fabricant\FilterFabricantRequest;
 use App\Http\Requests\Fabricant\CodeFRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\FabricantService;
