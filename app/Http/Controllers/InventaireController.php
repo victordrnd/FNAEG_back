@@ -34,7 +34,7 @@ class InventaireController extends Controller
 
 
     public function getAll(){
-        $inventaires =$this->inventaireService::getAll();
+        $inventaires = $this->inventaireService::getAll();
         return Controller::responseJson(200, 'Les inventaires ont été retournés', $inventaires);
     }
 
@@ -49,6 +49,9 @@ class InventaireController extends Controller
         return Controller::responseJson(200, "L'inventaire a correctement été supprimé");
     }
 
-
+    public function filter(Request $req){
+        $inventaires = $this->inventaireService::filter($req);
+        return Controller::responseJson(200, "Les inventaires ont été filtré", $inventaires);
+    }
 
 }

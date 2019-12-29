@@ -64,6 +64,7 @@ Route::group(['prefix' => 'inventory'], function () {
   Route::get('/',               'InventaireController@getAll');
   Route::get('/paginate',       'InventaireController@paginate');
   Route::post('/',              'InventaireController@find');
+  Route::post('/filter',        'InventaireController@filter');
   Route::post('/create',        'InventaireController@create');
   Route::delete('/{id}/delete', 'InventaireController@delete');
 });

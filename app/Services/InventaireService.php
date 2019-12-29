@@ -7,48 +7,65 @@ use App\Enregistrement;
 use App\Kit;
 use Illuminate\Http\Request;
 
-class InventaireService {
+class InventaireService
+{
 
-    public static function getAll(){
+    public static function getAll()
+    {
         return Inventaire::orderBy('created_at', 'DESC')
             ->with('enregistrements')
             ->get()
             ->map->format();
     }
 
-    public static function paginate(){
+    public static function paginate()
+    {
         return Inventaire::orderBy('created_at', 'DESC')
-            ->with('enregistrements')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
             ->paginate(5)->toArray();
     }
 
 
-    public static function create(Request $req){
+    public static function create(Request $req)
+    {
         $inventaire = Inventaire::create();
-        foreach($req->kits as $kit){
+        foreach ($req->kits as $kit) {
             Kit::find($kit['CodeKit'])->update([
                 'Stock' => $kit['Stock']
             ]);
             Enregistrement::create([
                 'inventaire_id' => $inventaire->id,
                 'CodeKit' => $kit['CodeKit'],
-                'Stock' => $kit['Stock'] 
+                'Stock' => $kit['Stock']
             ]);
         }
         return self::find($inventaire->id);
     }
 
-    public static function find($id){
+    public static function find($id)
+    {
         return Inventaire::where('id', $id)->with('enregistrements')->firstOrFail();
     }
 
 
-    public static function delete($id){
+    public static function delete($id)
+    {
         Enregistrement::where('inventaire_id', $id)->delete();
         Inventaire::destroy($id);
     }
 
 
+    public static function filter(Request $req)
+    {
+        $inventaires = (new Inventaire)->newQuery();
 
- 
+        if ($req->has('dateRange')) {
+            if(!empty($req->dateRange)){
+                $inventaires->whereBetween('created_at', $req->dateRange);
+            }
+        }
+        return $inventaires->orderBy('created_at', 'DESC')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
+            ->paginate(100)->toArray();
+    }
 }

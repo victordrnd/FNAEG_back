@@ -24,7 +24,7 @@ class FilterFabricantRequest extends FormRequest
     public function rules()
     {
         return [
-            'keyword' => 'sometimes|string',
+            'keyword' => 'sometimes|string|nullable',
             'ordersBy' => 'sometimes|array',
             'ordersBy.*.key' => 'required_with:ordersBy.*.value|string',
             'ordersBy.*.value' => 'required_with:ordersBy.*.key|in:asc,desc' 

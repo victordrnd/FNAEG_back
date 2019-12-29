@@ -8,4 +8,9 @@ class Enregistrement extends Model
 {
     protected $fillable = ['inventaire_id', 'CodeKit','Stock'];
     protected $hidden = ["created_at", "updated_at"];
+
+
+    public function kit(){
+        return $this->belongsTo(Kit::class, "CodeKit");
+    }
 }
