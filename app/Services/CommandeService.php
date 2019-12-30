@@ -15,6 +15,12 @@ class CommandeService
     }
 
 
+    public static function paginate(){
+
+        return Commande::with('status','details', 'details.kit', 'details.kit.fabricant')->paginate()->toArray();
+    }
+
+
     public static function find($id){
         return Commande::where('id', $id)->with('status', 'details')->first();
     }

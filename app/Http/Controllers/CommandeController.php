@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Commande\CreateCommandeRequest;
 use App\Services\CommandeService;
+use App\Http\Requests\Commande\UpdateCommandeRequest;   
 
 class CommandeController extends Controller
 {
@@ -29,7 +30,12 @@ class CommandeController extends Controller
         return Controller::responseJson(200, "Les commandes ont été retournés", $commandes);
     }
 
-    public function update(Request $req){
+    public function paginate(){
+        $commandes = $this->commandeService::paginate();
+        return Controller::responseJson(200, "Les commandes ont été retorunées", $commandes);
+    }
+
+    public function update(UpdateCommandeRequest $req){
         try{
             $commande = $this->commandeService::update($req);
         }catch(\Exception $e){

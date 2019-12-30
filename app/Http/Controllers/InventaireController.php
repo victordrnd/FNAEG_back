@@ -9,6 +9,7 @@ use App\Http\Requests\Inventaire\CreateInventaireRequest;
 use App\Services\InventaireService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\Inventaire\FindInventaireRequest;
+use App\Http\Requests\Inventaire\FilterInventaireRequest;
 
 class InventaireController extends Controller
 {
@@ -49,7 +50,7 @@ class InventaireController extends Controller
         return Controller::responseJson(200, "L'inventaire a correctement été supprimé");
     }
 
-    public function filter(Request $req){
+    public function filter(FilterInventaireRequest $req){
         $inventaires = $this->inventaireService::filter($req);
         return Controller::responseJson(200, "Les inventaires ont été filtré", $inventaires);
     }

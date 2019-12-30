@@ -57,7 +57,9 @@ Route::group(['prefix' => 'fabricant'], function () {
 
 Route::group(['prefix' => 'order'], function () {
   Route::get('/',               'CommandeController@getAll');
+  Route::get('/paginate',       'CommandeController@paginate');
   Route::post('/create',        'CommandeController@create');
+  Route::post('/update',        'CommandeController@update');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
