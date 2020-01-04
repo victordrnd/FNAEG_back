@@ -21,6 +21,7 @@ class Commande extends Model
         return [
             'id' => $this->id,
             'status' => $this->status->libelle,
+            'status_id' => $this->status_id,
             'details' => $this->details,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),

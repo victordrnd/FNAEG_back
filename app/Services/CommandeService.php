@@ -11,18 +11,20 @@ class CommandeService
 {
     public static function getAll()
     {
-        return Commande::with('status', 'details')->get()->map->format();
+        return Commande::orderBy('created_at', 'DESC')
+            ->with('status', 'details')->get()->map->format();
     }
 
 
     public static function paginate(){
 
-        return Commande::with('status','details', 'details.kit', 'details.kit.fabricant')->paginate()->toArray();
+        return Commande::orderBy('created_at', 'DESC')
+            ->with('status','details', 'details.kit', 'details.kit.fabricant')->paginate()->toArray();
     }
 
 
     public static function find($id){
-        return Commande::where('id', $id)->with('status', 'details')->first();
+        return Commande::where('id', $id)->with('status','details', 'details.kit', 'details.kit.fabricant')->first();
     }
 
     public static function create(Request $req)
@@ -46,10 +48,17 @@ class CommandeService
     public static function update(Request $req)
     {
         $commande = Commande::findOrFail($req->id);
-        foreach($req->lignes as $ligne){
-            $lignecmd = LigneCommande::where('CodeKit', $ligne['CodeKit'])
-                                    ->where('commande_id', $commande->id)->first();
-            $lignecmd->update(['Qte' => $ligne['Qte']]);
+        if($req->has('lignes')){
+            foreach($req->lignes as $ligne){
+                $lignecmd = LigneCommande::where('CodeKit', $ligne['CodeKit'])
+                ->where('commande_id', $commande->id)->first();
+                $lignecmd->update(['Qte' => $ligne['Qte']]);
+            }
+        }
+        if($req->has('status_id')){
+            $commande->update([
+                'status_id' => $req->status_id
+            ]);
         }
         return self::find($commande->id);
     }

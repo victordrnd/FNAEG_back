@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\Kit;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class ImportKitRequest extends FormRequest
+use App\Http\Requests\ApiRequest;
+class ImportKitRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

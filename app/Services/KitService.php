@@ -12,13 +12,13 @@ class KitService
 {
     public static function getAll()
     {
-        return  Kit::where('CodeKit', '!=', null)->with('fabricant')->get();
+        return  Kit::with('fabricant')->get();
     }
 
 
     public static function paginate()
     {
-        return Kit::where('CodeKit', '!=', null)->with('fabricant')->paginate()->toArray();
+        return Kit::with('fabricant')->paginate()->toArray();
     }
 
 
