@@ -1,0 +1,30 @@
+name: "deploy"
+author : "Victor DURAND"
+description: "Deploie le backend FNAEG sur les serveurs de SUPALTA"
+on : 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    steps:
+      - uses: actions/checkout@v2
+      uses: horochx/deploy-via-scp@master
+      with:
+        local: . # eg: dist
+        remote: ${{ secrets.REMOTE }} # eg: /home/github-action
+        host: ${{ secrets.HOST }} # eg: example.com
+        port: ${{ secrets.PORT }} # eg: 22
+        user: ${{ secrets.USER }} # eg: github-action
+        key: ${{ secrets.KEY }}
+
+      - name: Copy Environnement
+        run : php -R "file_exists('.env') || copy('.env.ci', '.env');"
+
+
+      - name: Install composer dependencies
+        run: composer install --no-scripts
+
+      - name: Generate key
+        run: php artisan key:generate
