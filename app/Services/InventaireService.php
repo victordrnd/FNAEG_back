@@ -6,10 +6,10 @@ use App\Inventaire;
 use App\Enregistrement;
 use App\Kit;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class InventaireService
 {
-
     public static function getAll()
     {
         return Inventaire::orderBy('created_at', 'DESC')
@@ -54,18 +54,43 @@ class InventaireService
         Inventaire::destroy($id);
     }
 
-
     public static function filter(Request $req)
     {
         $inventaires = (new Inventaire)->newQuery();
 
         if ($req->has('dateRange')) {
-            if(!empty($req->dateRange)){
+            if (!empty($req->dateRange)) {
                 $inventaires->whereBetween('created_at', $req->dateRange);
             }
         }
         return $inventaires->orderBy('created_at', 'DESC')
             ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
             ->paginate(100)->toArray();
+    }
+
+
+    public static function stats()
+    {
+        return Inventaire::orderBy('created_at', 'desc')
+            ->take(5)->get()->map->format();
+    }
+
+
+    public static function graphs()
+    {
+        $inventaires = Inventaire::where('created_at', '>', Carbon::now()->subMonth(6))
+        ->get()
+        ->groupBy(function ($d) {
+            return Carbon::parse($d->created_at)->format('F');
+        });
+
+        $stockCount = [];
+        $result = [];
+
+        foreach ($inventaires as $key => $value) {
+            $stockCount[$key] = count($value);
+        }
+
+        return $stockCount;
     }
 }

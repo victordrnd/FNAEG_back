@@ -43,4 +43,10 @@ class CommandeController extends Controller
         }
         return Controller::responseJson(200, "La commande a correctement été mis à jour", $commande);
     }
+
+
+    public function stats(){
+        $commandes = $this->commandeService::stats();
+        return Controller::responseJson(200, 'Les statistiques des commandes ont été retournés', $commandes);
+    }
 }
