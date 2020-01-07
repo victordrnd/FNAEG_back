@@ -9,10 +9,10 @@ on :
 jobs:
   build:
     steps:
-      - uses: actions/checkout@v2
+      - name : Establishing scp connection 
       - uses: horochx/deploy-via-scp@master
       with:
-        local: . # eg: dist
+        local: dist # eg: dist
         remote: ${{ secrets.REMOTE }} # eg: /home/github-action
         host: ${{ secrets.HOST }} # eg: example.com
         port: ${{ secrets.PORT }} # eg: 22
@@ -20,6 +20,7 @@ jobs:
         key: ${{ secrets.KEY }}
 
       - name: Copy Environnement
+      - uses: actions/checkout@v1
         run : php -R "file_exists('.env') || copy('.env.ci', '.env');"
 
 
