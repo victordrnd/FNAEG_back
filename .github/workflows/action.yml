@@ -9,16 +9,6 @@ on :
 jobs:
   build:
     steps:
-      - name : Establishing scp connection 
-      - uses: horochx/deploy-via-scp@master
-      with:
-        local: dist # eg: dist
-        remote: ${{ secrets.REMOTE }} # eg: /home/github-action
-        host: ${{ secrets.HOST }} # eg: example.com
-        port: ${{ secrets.PORT }} # eg: 22
-        user: ${{ secrets.USER }} # eg: github-action
-        key: ${{ secrets.KEY }}
-
       - name: Copy Environnement
       - uses: actions/checkout@v1
         run : php -R "file_exists('.env') || copy('.env.ci', '.env');"
