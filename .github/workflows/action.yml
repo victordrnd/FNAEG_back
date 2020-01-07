@@ -10,7 +10,7 @@ jobs:
   build:
     steps:
       - uses: actions/checkout@v2
-      uses: horochx/deploy-via-scp@master
+      - uses: horochx/deploy-via-scp@master
       with:
         local: . # eg: dist
         remote: ${{ secrets.REMOTE }} # eg: /home/github-action
