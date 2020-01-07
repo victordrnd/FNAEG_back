@@ -9,8 +9,10 @@ on :
 jobs:
   build:
     steps:
-      - name: Copy Environnement
+      - name : Init 
       - uses: actions/checkout@v1
+      
+      - name: Copy Environnement
         run : php -R "file_exists('.env') || copy('.env.ci', '.env');"
 
 
