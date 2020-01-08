@@ -49,4 +49,10 @@ class CommandeController extends Controller
         $commandes = $this->commandeService::stats();
         return Controller::responseJson(200, 'Les statistiques des commandes ont été retournés', $commandes);
     }
+
+
+    public function amount(){
+        $amount = $this->commandeService::amount();
+        return Controller::responseJson(200, "Le montant a été retourné", $amount);
+    }
 }

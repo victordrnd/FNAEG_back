@@ -60,9 +60,15 @@ class InventaireController extends Controller
         return Controller::responseJson(200, "Les inventaires ont été renvoyé", $inventaires);
     }
 
+    public function last(){
+        $inventaire = $this->inventaireService::last();
+        return Controller::responseJson(200, "Le dernier inventaire a été retourné", $inventaire);
+    }
+
     public function graphs(){
         $inventaires = $this->inventaireService::graphs();
         return Controller::responseJson(200, "Les inventaires ont été retourné", $inventaires);
     }
+
 
 }

@@ -75,20 +75,28 @@ class InventaireService
             ->take(5)->get()->map->format();
     }
 
+    public static function last(){
+        return Inventaire::orderBy('created_at', 'DESC')->first()->format();
+    }
 
     public static function graphs()
     {
-        $inventaires = Inventaire::where('created_at', '>', Carbon::now()->subMonth(6))
+        $months = Inventaire::where('created_at', '>', Carbon::now()->subMonth(6))
         ->get()
         ->groupBy(function ($d) {
             return Carbon::parse($d->created_at)->format('F');
         });
+        
 
         $stockCount = [];
         $result = [];
 
-        foreach ($inventaires as $key => $value) {
-            $stockCount[$key] = count($value);
+        foreach ($months as $key => $inventaires) {
+            $inventaire = $inventaires->last();
+            $sum = $inventaire->enregistrements->sum(function($record){
+                return $record->Stock;
+            });
+            $stockCount[$key] = $sum;
         }
 
         return $stockCount;

@@ -65,9 +65,18 @@ class CommandeService
 
 
     public static function stats(){
-        $commandes = Commande::orderBy('created_at', 'desc')
+        return Commande::orderBy('created_at', 'desc')
             ->with('status', 'details')
             ->take(5)->get()->map->format();
-        return $commandes;    
+    }
+
+    public static function amount(){
+        $commandes = Commande::where('created_at', '>', new Carbon('first day of this year'))
+        ->get()->map->format();
+        $amount = 0;
+        foreach($commandes as $commande){
+            $amount += $commande['prix'];
+        }
+        return $amount;
     }
 }
