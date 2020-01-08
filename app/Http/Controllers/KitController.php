@@ -100,4 +100,12 @@ class KitController extends Controller{
        $kits = $this->kitService::paginate();
         return Controller::responseJson(200 ,"Les kits ont été mis à jour", $kits);
     }
+
+
+    public function count(){
+        $count = \App\Kit::all()->sum(function($kit){
+            return $kit->Stock;
+        });
+        return Controller::responseJson(200, "Le count a été retourné", $count);
+    }
 }

@@ -36,6 +36,7 @@ Route::group(['prefix' => 'kit'], function () {
   Route::get('/',               'KitController@getAll');
   Route::get('/paginate',       'KitController@getAllWithPagination');
   Route::get('/export',         'KitController@export');
+  Route::get('/count',          'KitController@count');
   Route::post('/import',        'KitController@import');
   Route::post('/',              'KitController@find');
   Route::post('/filter',        'KitController@filter');
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'order'], function () {
   Route::post('/create',        'CommandeController@create');
   Route::post('/update',        'CommandeController@update');
   Route::get('/stats',          'CommandeController@stats');
+  Route::get('/amount',         'CommandeController@amount');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
@@ -72,6 +74,7 @@ Route::group(['prefix' => 'inventory'], function () {
   Route::delete('/{id}/delete', 'InventaireController@delete');
   Route::get('/stats',          'InventaireController@stats');
   Route::get('/graphs',         'InventaireController@graphs');
+  Route::get('/last',           'InventaireController@last');
 });
 
 Route::group(['prefix' => 'record'], function () {
