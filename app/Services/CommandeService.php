@@ -62,4 +62,12 @@ class CommandeService
         }
         return self::find($commande->id);
     }
+
+
+    public static function stats(){
+        $commandes = Commande::orderBy('created_at', 'desc')
+            ->with('status', 'details')
+            ->take(5)->get()->map->format();
+        return $commandes;    
+    }
 }

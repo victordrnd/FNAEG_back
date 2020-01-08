@@ -60,6 +60,7 @@ Route::group(['prefix' => 'order'], function () {
   Route::get('/paginate',       'CommandeController@paginate');
   Route::post('/create',        'CommandeController@create');
   Route::post('/update',        'CommandeController@update');
+  Route::get('/stats',          'CommandeController@stats');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
@@ -69,6 +70,8 @@ Route::group(['prefix' => 'inventory'], function () {
   Route::post('/filter',        'InventaireController@filter');
   Route::post('/create',        'InventaireController@create');
   Route::delete('/{id}/delete', 'InventaireController@delete');
+  Route::get('/stats',          'InventaireController@stats');
+  Route::get('/graphs',         'InventaireController@graphs');
 });
 
 Route::group(['prefix' => 'record'], function () {
