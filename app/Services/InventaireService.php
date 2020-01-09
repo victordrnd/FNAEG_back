@@ -98,7 +98,6 @@ class InventaireService
             });
             $stockCount[$key] = $sum;
         }
-
         return $stockCount;
     }
 }
