@@ -7,6 +7,7 @@ use Carbon\Carbon;
 class Commande extends Model
 {
     protected $fillable = ['status_id'];
+    public $appends = ['prix'];
     
     public function status()
     {
@@ -17,6 +18,12 @@ class Commande extends Model
         return $this->hasMany(LigneCommande::class);
     }
 
+    public function getPrixAttribute(){
+        return $this->details->sum(function($ligne){
+            return $ligne->kit->prix * $ligne->Qte;
+        });
+    }
+
     public function format(){
         Carbon::setLocale('fr');
         return [
@@ -25,7 +32,7 @@ class Commande extends Model
             'status_id' => $this->status_id,
             'details' => $this->details,
             'prix' => $this->details->sum(function($ligne){
-                return $ligne->kit->prix;
+                return $ligne->kit->prix * $ligne->Qte;
             }),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
