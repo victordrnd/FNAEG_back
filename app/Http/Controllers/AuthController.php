@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
+
+  
   public function login(Request $request)
   {
     $validator  = Validator::make($request->all(), [
@@ -27,6 +29,12 @@ class AuthController extends Controller
     ];
     return $this->responseJson(200, 'Identifiants valides', $data);
   }
+
+
+
+
+
+
   public function signup(Request $request)
   {
     $validator  = Validator::make($request->all(), [
@@ -40,7 +48,7 @@ class AuthController extends Controller
       return Controller::responseJson(422, 'Certains champs sont manquants', $validator->errors());
     }
     $password = $request->password;
-    $request->merge(['password' => Hash::make($password)]);
+    $request->merge(['password' => Hash::make($password), 'role_id' => 1]);
     $user = User::create($request->all());
     $credentials = [
       'email' => $request->email,
@@ -55,6 +63,12 @@ class AuthController extends Controller
     ];
     return $this->responseJson(Controller::$HTTP_OK, "L'enregistrement a réussi", $data);
   }
+
+
+
+
+
+
   public function getCurrentUser()
   {
     $data =  [

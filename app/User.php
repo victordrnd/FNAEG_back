@@ -8,16 +8,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
-  use Notifiable;
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  protected $fillable = ['firstname', 'lastname', 'email', 'password', 'phone', 'country'];
+    use Notifiable;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['firstname', 'lastname', 'email', 'password', 'phone', 'country', 'role_id'];
 
-  protected $hidden = ['password'];
-
+    protected $hidden = ['password'];
+    public $appends = ['role'];
+  
+    public function getRoleAttribute()
+    {
+        return $this->role();
+    }
 
 
 
@@ -26,25 +31,27 @@ class User extends Authenticatable implements JWTSubject
 
 
 
-  /**
-   * The attributes that should be hidden for arrays.
-   *
-   * @var array
-   */
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
 
 
-  public function getJWTIdentifier()
-  {
-    return $this->getKey();
-  }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
 
 
-  public function getJWTCustomClaims()
-  {
-    return [];
-  }
-
-  
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

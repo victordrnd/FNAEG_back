@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class Commande extends Model
 {
-    protected $fillable = ['status_id'];
+    protected $fillable = ['status_id', 'creator_id'];
     public $appends = ['prix'];
+    protected $hidden = ['creator_id'];
     
     public function status()
     {
@@ -16,6 +17,10 @@ class Commande extends Model
 
     public function details(){
         return $this->hasMany(LigneCommande::class);
+    }
+
+    public function creator(){
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function getPrixAttribute(){
@@ -34,6 +39,7 @@ class Commande extends Model
             'prix' => $this->details->sum(function($ligne){
                 return $ligne->kit->prix * $ligne->Qte;
             }),
+            'creator' => $this->creator,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
             'last_created' => $this->created_at->diffForHumans(),

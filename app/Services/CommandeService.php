@@ -19,7 +19,7 @@ class CommandeService
     public static function paginate(){
 
         return Commande::orderBy('created_at', 'DESC')
-            ->with('status','details', 'details.kit', 'details.kit.fabricant')->paginate()->toArray();
+            ->with('status','details', 'details.kit', 'details.kit.fabricant', 'creator')->paginate()->toArray();
     }
 
 
@@ -30,7 +30,8 @@ class CommandeService
     public static function create(Request $req)
     {
         $commande = Commande::create([
-            'status_id' => 1
+            'status_id' => 1,
+            'creator_id' => auth()->user()->id
         ]);
         foreach ($req->lignes as $ligne) {
             LigneCommande::create([
