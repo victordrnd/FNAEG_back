@@ -19,7 +19,7 @@ class Inventaire extends Model
                 return $ligne->Stock;
             }),
             'prix' => $this->enregistrements->sum(function($ligne){
-                return $ligne->kit->prix;
+                return $ligne->kit->prix * $ligne->Stock;
             }),
             'created_at' => $this->created_at->toDateTimeString(),
             'last_update' => $this->updated_at->diffForHumans(),
