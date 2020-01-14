@@ -15,7 +15,8 @@ class UserController extends Controller
   * @return array
   */
   public static function showAll(){
-    return Controller::responseJson(200, "Les utisateurs ont bien été retournés" , User::all());
+    $users = User::with('role')->get();
+    return Controller::responseJson(200, "Les utisateurs ont bien été retournés" , $users);
   }
 
 
@@ -57,7 +58,7 @@ class UserController extends Controller
       $user = User::findOrFail($request->id);
     }
     catch(ModelNotFoundException $e){
-      return JsonResponse::exception($e);
+      return Controller::responseJson(422, "L'utilisateur n'existe pas");
     }
     $user->update($request->all());
     return Controller::responseJson(200, "L'utilisateur a bien été mis à jour" , User::find($request->id));

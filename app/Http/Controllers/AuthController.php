@@ -71,8 +71,11 @@ class AuthController extends Controller
 
   public function getCurrentUser()
   {
+    $user = User::where('id',auth()->user()->id)->first();
+    $user['permissions'] = $user->role->permissions->pluck('slug');
+    unset($user['role']['permissions']);
     $data =  [
-      'user' => auth()->user()
+      'user' => $user
     ];
     return Controller::responseJson(200, "L'utilisateur a été retourné", $data);
   }
