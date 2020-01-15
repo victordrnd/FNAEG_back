@@ -22,8 +22,11 @@ class AuthController extends Controller
     if (!$token = auth()->setTTL(525600)->attempt($credentials)) {
       return $this->responseJson(Controller::$HTTP_UNAUTHORIZED, 'Les identifiants sont incorrects');
     }
+    $user = User::where('id',auth()->user()->id)->first();
+    $user['permissions'] = $user->role->permissions->pluck('slug');
+    unset($user['role']['permissions']);
     $data =  [
-      'user' => auth()->user(),
+      'user' => $user,
       'token' => $token,
       'expire' => auth()->factory()->getTTL() * 60
     ];

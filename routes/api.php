@@ -80,4 +80,8 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::post('/update', 'EnregistrementController@update');
         Route::delete('/delete', 'EnregistrementController@delete');
     });
+
+    Route::group(['prefix' => 'role'], function(){
+        Route::get('/', 'RoleController@getAll');
+    });
 });
