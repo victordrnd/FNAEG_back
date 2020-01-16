@@ -22,16 +22,17 @@ Route::post('auth/login', 'AuthController@login');
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('/auth/current', 'AuthController@getCurrentUser');
 
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => 'users', 'middleware' => 'can:users.view'], function () {
         Route::get('/', 'UserController@showAll');
         Route::get('/{id}', 'UserController@get');
-        Route::post('/add', 'UserController@add');
+        Route::post('/filter', 'UserController@filter');
+        Route::post('/create', 'UserController@create')->middleware('can:users.create');
         Route::post('/update', 'UserController@update');
         Route::post('/delete/{id}', 'UserController@delete');
     });
 
 
-    Route::group(['prefix' => 'kit'], function () {
+    Route::group(['prefix' => 'kit', 'middleware' => 'can:kits.view'], function () {
         Route::get('/', 'KitController@getAll');
         Route::get('/paginate', 'KitController@getAllWithPagination');
         Route::get('/export', 'KitController@export');
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::delete('/delete', 'KitController@delete');
     });
 
-    Route::group(['prefix' => 'fabricant'], function () {
+    Route::group(['prefix' => 'fabricant', 'middleware' => 'can:fabricants.view'], function () {
         Route::get('/', 'FabricantController@getAll');
         Route::get('/paginate', 'FabricantController@paginate');
         Route::post('/', 'FabricantController@find');
@@ -56,27 +57,27 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     });
 
     Route::group(['prefix' => 'order'], function () {
-        Route::get('/', 'CommandeController@getAll');
-        Route::get('/paginate', 'CommandeController@paginate');
-        Route::post('/create', 'CommandeController@create');
-        Route::post('/update', 'CommandeController@update');
+        Route::get('/', 'CommandeController@getAll')->middleware('can:orders.view');
+        Route::get('/paginate', 'CommandeController@paginate')->middleware('can:orders.view');
+        Route::post('/create', 'CommandeController@create')->middleware('can:orders.create');
+        Route::post('/update', 'CommandeController@update')->middleware('can:orders.view');
         Route::get('/stats', 'CommandeController@stats');
         Route::get('/amount', 'CommandeController@amount');
     });
 
     Route::group(['prefix' => 'inventory'], function () {
-        Route::get('/', 'InventaireController@getAll');
-        Route::get('/paginate', 'InventaireController@paginate');
-        Route::post('/', 'InventaireController@find');
-        Route::post('/filter', 'InventaireController@filter');
-        Route::post('/create', 'InventaireController@create');
-        Route::delete('/{id}/delete', 'InventaireController@delete');
+        Route::get('/', 'InventaireController@getAll')->middleware('can:inventory.view');
+        Route::get('/paginate', 'InventaireController@paginate')->middleware('can:inventory.view');
+        Route::post('/', 'InventaireController@find')->middleware('can:inventory.view');
+        Route::post('/filter', 'InventaireController@filter')->middleware('can:inventory.view');
+        Route::post('/create', 'InventaireController@create')->middleware('can:inventory.view');
+        Route::delete('/{id}/delete', 'InventaireController@delete')->middleware('can:inventory.view');
         Route::get('/stats', 'InventaireController@stats');
         Route::get('/graphs', 'InventaireController@graphs');
         Route::get('/last', 'InventaireController@last');
     });
 
-    Route::group(['prefix' => 'record'], function () {
+    Route::group(['prefix' => 'record', 'middleware' => 'can:inventory.view'], function () {
         Route::post('/update', 'EnregistrementController@update');
         Route::delete('/delete', 'EnregistrementController@delete');
     });
