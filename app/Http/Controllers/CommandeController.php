@@ -24,6 +24,11 @@ class CommandeController extends Controller
         return Controller::responseJson(200, "La commande a correctement été effectué", $commande);
     }
 
+    public function filter(Request $req){
+        $commandes = $this->commandeService::filter($req);
+        return Controller::responseJson(200, "Les commandes ont été filtrés", $commandes);
+    }
+
 
     public function getAll(){
         $commandes = $this->commandeService::getAll();

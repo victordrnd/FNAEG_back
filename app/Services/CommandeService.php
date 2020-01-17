@@ -23,6 +23,19 @@ class CommandeService
     }
 
 
+    public static function filter(Request $req){
+        $commandes = (new Commande)->newQuery();
+        if ($req->has('creators')) {
+            if(!empty($req->creators)){
+                $commandes->whereIn('creator_id', $req->creators);
+            }
+        }
+
+        return $commandes->orderBy('created_at', 'DESC')
+        ->with('status','details', 'details.kit', 'details.kit.fabricant', 'creator')->paginate()->toArray();
+    }
+
+
     public static function find($id){
         return Commande::where('id', $id)->with('status','details', 'details.kit', 'details.kit.fabricant')->first();
     }

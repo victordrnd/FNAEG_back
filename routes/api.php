@@ -22,13 +22,13 @@ Route::post('auth/login', 'AuthController@login');
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('/auth/current', 'AuthController@getCurrentUser');
 
-    Route::group(['prefix' => 'users', 'middleware' => 'can:users.view'], function () {
+    Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@showAll');
-        Route::get('/{id}', 'UserController@get');
-        Route::post('/filter', 'UserController@filter');
+        Route::get('/{id}', 'UserController@get')->middleware('can:users.view');
+        Route::post('/filter', 'UserController@filter')->middleware('can:users.view');
         Route::post('/create', 'UserController@create')->middleware('can:users.create');
-        Route::post('/update', 'UserController@update');
-        Route::post('/delete/{id}', 'UserController@delete');
+        Route::post('/update', 'UserController@update')->middleware('can:users.view');
+        Route::post('/delete/{id}', 'UserController@delete')->middleware('can:users.create');
     });
 
 
@@ -59,6 +59,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', 'CommandeController@getAll')->middleware('can:orders.view');
         Route::get('/paginate', 'CommandeController@paginate')->middleware('can:orders.view');
+        Route::post('/filter',   'CommandeController@filter')->middleware('can:orders.view');
         Route::post('/create', 'CommandeController@create')->middleware('can:orders.create');
         Route::post('/update', 'CommandeController@update')->middleware('can:orders.view');
         Route::get('/stats', 'CommandeController@stats');

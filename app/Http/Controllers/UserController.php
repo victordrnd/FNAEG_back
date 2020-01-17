@@ -17,7 +17,7 @@ class UserController extends Controller
   */
     public function showAll()
     {
-        $users = User::with('role')->get();
+        $users = User::withTrashed()->with('role')->get();
         return Controller::responseJson(200, "Les utisateurs ont bien été retournés", $users);
     }
 
@@ -90,6 +90,13 @@ class UserController extends Controller
             $user = User::findOrFail($request->id);
         } catch (ModelNotFoundException $e) {
             return Controller::responseJson(422, "L'utilisateur n'existe pas");
+        }
+        if($request->has('password')){
+            if($request->filled('password') && $request->password != ""){
+                $request->merge(['password' => Hash::make($request->password)]);
+            }else{
+                $request->request->remove('password');
+            }
         }
         $user->update($request->all());
         return Controller::responseJson(200, "L'utilisateur a bien été mis à jour", User::find($request->id));
