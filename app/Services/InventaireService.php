@@ -21,7 +21,7 @@ class InventaireService
     public static function paginate()
     {
         return Inventaire::orderBy('created_at', 'DESC')
-            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant', 'creator')
             ->paginate(5)->toArray();
     }
 
@@ -64,7 +64,7 @@ class InventaireService
             }
         }
         return $inventaires->orderBy('created_at', 'DESC')
-            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant','creator')
             ->paginate(100)->toArray();
     }
 

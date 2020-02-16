@@ -21,9 +21,13 @@ class Inventaire extends Model
             'prix' => $this->enregistrements->sum(function($ligne){
                 return $ligne->kit->prix * $ligne->Stock;
             }),
+            'creator' => $this->creator(),
             'created_at' => $this->created_at->toDateTimeString(),
             'last_update' => $this->updated_at->diffForHumans(),
         ];
     }
 
+    public function creator(){
+        return $this->belongsTo(User::class, 'creator_id')->withTrashed();
+    }
 }
