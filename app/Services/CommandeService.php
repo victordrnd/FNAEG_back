@@ -85,7 +85,7 @@ class CommandeService
     }
 
     public static function amount(){
-        $commandes = Commande::where('created_at', '>', new Carbon('first day of this year'))
+        $commandes = Commande::where('created_at', '>',Carbon::now()->startOfYear())
         ->get()->map->format();
         $amount = 0;
         foreach($commandes as $commande){
