@@ -28,7 +28,7 @@ class InventaireService
 
     public static function create(Request $req)
     {
-        $inventaire = Inventaire::create();
+        $inventaire = Inventaire::create(['creator_id' => auth()->user()->id]);
         foreach ($req->kits as $kit) {
             Kit::find($kit['CodeKit'])->update([
                 'Stock' => $kit['Stock']

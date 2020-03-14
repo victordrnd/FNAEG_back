@@ -9,6 +9,7 @@ class Inventaire extends Model
     public function enregistrements(){
         return $this->hasMany(Enregistrement::class);
     }
+    protected $fillable = ['creator_id'];
 
     public function format(){
         Carbon::setLocale('fr');
