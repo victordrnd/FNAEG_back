@@ -83,7 +83,10 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::delete('/delete', 'EnregistrementController@delete');
     });
 
-    Route::group(['prefix' => 'role'], function(){
-        Route::get('/', 'RoleController@getAll');
-    });
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('/', 'RoleController@getAllRoles');
+    
+        Route::post('/{id}/add',  'RoleController@addPermissionsToRole')->where('id', '[0-9]+');;
+        Route::post('/{id}/remove',  'RoleController@removePermissionsToRole')->where('id', '[0-9]+');;
+      });
 });

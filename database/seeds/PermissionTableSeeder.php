@@ -44,5 +44,10 @@ class PermissionTableSeeder extends Seeder
             'libelle' => 'Créer des utilisateurs',
             'slug' => 'users.create'
         ]);
+
+        Permission::create([
+            'libelle' => 'Modifier les permissions',
+            'slug' => 'permission.edit'
+        ]);
     }
 }

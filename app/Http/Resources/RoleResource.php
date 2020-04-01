@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Permission;
 class RoleResource extends JsonResource
 {
     /**
@@ -14,6 +14,12 @@ class RoleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        \Carbon\Carbon::setLocale('FR');
+        return [
+            'id' => $this->id,
+            'libelle' => $this->libelle,
+            'niveau' => $this->niveau,
+            'permissions' => new PermissionCollection(Permission::all(), $this)
+        ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\RolePermission;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -14,4 +14,7 @@ class Role extends Model
         return $this->belongsToMany(Permission::class, 'role_permission');
     }
 
+    public function hasPermission($permission_id){
+        return RolePermission::where('permission_id', $permission_id)->where('role_id', $this->id)->count();
+    }
 }
