@@ -13,14 +13,14 @@ class CreateEnregistrementsTable extends Migration
      */
     public function up()
     {
-        // Schema::create('enregistrements', function (Blueprint $table) {
-        //     $table->increments('id');
-        //     $table->integer('inventaire_id')->unsigned()->index();
-        //     $table->string('CodeKit', 30);
-        //     $table->integer('Stock')->nullable();
-        //     $table->foreign('inventaire_id')->references('id')->on('inventaires');
-        //     $table->timestamps();
-        // });
+        Schema::create('enregistrements', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('inventaire_id')->unsigned()->index();
+            $table->string('CodeKit', 30);
+            $table->integer('Stock')->nullable();
+            $table->foreign('inventaire_id')->references('id')->on('inventaires');
+            $table->timestamps();
+        });
     }
 
     /**

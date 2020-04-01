@@ -24,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->loadGates();
+    }
 
+    public function loadGates(){
         Gate::define('kits.view', function($user){
             return $user->hasPermission('kits.view');
         });
@@ -56,6 +59,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('inventory.view', function($user){
             return $user->hasPermission('inventory.view');
         });
-
     }
 }

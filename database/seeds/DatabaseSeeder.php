@@ -15,17 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Status::create([
-        // 'libelle' => 'En attente'
-        // ]);
+        Status::create([
+        'libelle' => 'En attente'
+        ]);
 
-        // Status::create([
-        // 'libelle' => 'Validée'
-        // ]);
+        Status::create([
+        'libelle' => 'Validée'
+        ]);
 
-        // Status::create([
-        // 'libelle' => 'Annulée'
-        // ]);
+        Status::create([
+        'libelle' => 'Annulée'
+        ]);
         Role::create([
           'libelle' => 'Inventoriste',
           'niveau' => 1 
@@ -40,40 +40,40 @@ class DatabaseSeeder extends Seeder
           'libelle' => "Responsable",
           'niveau' => 3 
       ]);
-      //   Permission::create([
-      //     'libelle' => 'Voir tous les kits',
-      //     'slug' => 'kits.view'
-      // ]);
+        Permission::create([
+          'libelle' => 'Voir tous les kits',
+          'slug' => 'kits.view'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Voir tous les fabricants',
-      //     'slug' => 'fabricants.view'
-      // ]);
+      Permission::create([
+          'libelle' => 'Voir tous les fabricants',
+          'slug' => 'fabricants.view'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Voir toutes les commandes',
-      //     'slug' => 'orders.view'
-      // ]);
+      Permission::create([
+          'libelle' => 'Voir toutes les commandes',
+          'slug' => 'orders.view'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Réaliser une commande',
-      //     'slug' => 'orders.create'
-      // ]);
+      Permission::create([
+          'libelle' => 'Réaliser une commande',
+          'slug' => 'orders.create'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Mettre à jour une commande',
-      //     'slug' => 'orders.update'
-      // ]);
+      Permission::create([
+          'libelle' => 'Mettre à jour une commande',
+          'slug' => 'orders.update'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Voir tous les utilisateurs',
-      //     'slug' => 'users.view'
-      // ]);
+      Permission::create([
+          'libelle' => 'Voir tous les utilisateurs',
+          'slug' => 'users.view'
+      ]);
 
-      // Permission::create([
-      //     'libelle' => 'Créer des utilisateurs',
-      //     'slug' => 'users.create'
-      // ]);
+      Permission::create([
+          'libelle' => 'Créer des utilisateurs',
+          'slug' => 'users.create'
+      ]);
 
        Permission::create([
            'libelle' => 'Afficher les inventaires',
