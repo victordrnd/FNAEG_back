@@ -104,10 +104,10 @@ class KitController extends Controller{
 
     public function count(){
         $count = \App\Kit::all()->sum(function($kit){
-            return $kit->Stock;
+            return $kit->stock;
         });
         $amount = \App\Kit::all()->sum(function($kit){
-            return $kit->Stock * $kit->prix;
+            return $kit->stock * $kit->prix;
         }); 
         return Controller::responseJson(200, "Le count a été retourné", ['count'=>$count, 'amount' => $amount]);
     }

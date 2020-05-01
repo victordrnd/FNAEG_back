@@ -31,7 +31,7 @@ class InventaireService
         $inventaire = Inventaire::create(['creator_id' => auth()->user()->id]);
         foreach ($req->kits as $kit) {
             Kit::find($kit['codekit'])->update([
-                'Stock' => $kit['Stock']
+                'stock' => $kit['stock']
             ]);
             Enregistrement::create([
                 'inventaire_id' => $inventaire->id,
@@ -94,7 +94,7 @@ class InventaireService
         foreach ($months as $key => $inventaires) {
             $inventaire = $inventaires->last();
             $sum = $inventaire->enregistrements->sum(function($record){
-                return $record->Stock;
+                return $record->stock;
             });
             $stockCount[$key] = $sum;
         }

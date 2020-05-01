@@ -12,7 +12,7 @@ class EnregistrementService
     public static function update(Request $req){
         $enregistrement = Enregistrement::find($req->id);
         $enregistrement->update([
-            'Stock' => $req->Stock
+            'stock' => $req->stock
         ]);
         return $enregistrement;
         
