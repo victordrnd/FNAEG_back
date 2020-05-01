@@ -76,7 +76,7 @@ class InventaireService
     }
 
     public static function last(){
-        return Inventaire::orderBy('id', 'DESC')->first()->format();
+        return Inventaire::orderBy('id', 'DESC')->firstOrFail()->format();
     }
 
     public static function graphs()
