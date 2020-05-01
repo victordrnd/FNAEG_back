@@ -12,7 +12,7 @@ class InventaireService
 {
     public static function getAll()
     {
-        return Inventaire::orderBy('created_at', 'DESC')
+        return Inventaire::orderBy('id', 'DESC')
             ->with('enregistrements')
             ->get()
             ->map->format();
@@ -20,7 +20,7 @@ class InventaireService
 
     public static function paginate()
     {
-        return Inventaire::orderBy('created_at', 'DESC')
+        return Inventaire::orderBy('id', 'DESC')
             ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant', 'creator')
             ->paginate(5)->toArray();
     }
@@ -71,12 +71,12 @@ class InventaireService
 
     public static function stats()
     {
-        return Inventaire::orderBy('created_at', 'desc')
+        return Inventaire::orderBy('id', 'desc')
             ->take(5)->get()->map->format();
     }
 
     public static function last(){
-        return Inventaire::orderBy('created_at', 'DESC')->first()->format();
+        return Inventaire::orderBy('id', 'DESC')->first()->format();
     }
 
     public static function graphs()
