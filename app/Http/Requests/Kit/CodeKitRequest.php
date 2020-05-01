@@ -24,7 +24,7 @@ class CodeKitRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeKit' => 'string|exists:kits'
+            'codekit' => 'string|exists:kits'
         ];
     }
 }

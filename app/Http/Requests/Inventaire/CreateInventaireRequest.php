@@ -25,8 +25,8 @@ class CreateInventaireRequest extends ApiRequest
     {
         return [
             'kits' => 'required|array',
-            'kits.*.CodeKit' => 'required|exists:kits,CodeKit',
-            'kits.*.Stock' => 'required|integer'
+            'kits.*.codeKit' => 'required|exists:kits,codeKit',
+            'kits.*.stock' => 'required|integer'
         ];
     }
 }

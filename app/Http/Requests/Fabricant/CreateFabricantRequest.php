@@ -24,10 +24,10 @@ class CreateFabricantRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeF' => 'string|required|unique:fabricants',
-            'Nom' => 'string|required',
-            'Pays' => 'string|required',
-            'Ville' => 'string|required'
+            'codef' => 'string|required|unique:fabricants',
+            'nom' => 'string|required',
+            'pays' => 'string|required',
+            'ville' => 'string|required'
         ];
     }
 }

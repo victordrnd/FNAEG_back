@@ -24,10 +24,10 @@ class UpdateFabricantRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeF' => 'string|required|exists:fabricants',
-            'Nom' => 'string|required',
-            'Pays' => 'string|required',
-            'Ville' => 'string|required'
+            'codef' => 'string|required|exists:fabricants',
+            'nom' => 'string|required',
+            'pays' => 'string|required',
+            'ville' => 'string|required'
         ];
     }
 }

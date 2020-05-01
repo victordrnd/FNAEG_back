@@ -41,7 +41,7 @@ class KitService
         }
         if ($req->has('fabricants') && !empty($req->fabricants)) {
             $kit->whereHas('fabricant', function ($query) use ($req) {
-                $query->whereIn('CodeF', $req->fabricants);
+                $query->whereIn('codef', $req->fabricants);
             });
         }
         if ($req->has('ordersBy')) {
@@ -57,13 +57,13 @@ class KitService
 
     public static function find(Request $req)
     {
-        return Kit::where('CodeKit', $req->CodeKit)->firstOrFail();
+        return Kit::where('codekit', $req->codekit)->firstOrFail();
     }
 
 
     public static function update(Request $req)
     {
-        $kit = Kit::where('CodeKit', $req->CodeKit)->firstOrFail();
+        $kit = Kit::where('codekit', $req->codekit)->firstOrFail();
 
         $kit->update($req->all());
         return $kit;
@@ -73,19 +73,19 @@ class KitService
     public static function create(Request $req)
     {
         return Kit::create([
-            'CodeKit' => $req->CodeKit,
+            'codekit' => $req->codekit,
             'prix' => $req->prix,
-            'Duree' => $req->Duree,
-            'Annee' => $req->Annee,
-            'Stock' => 0,
-            'CodeF' => $req->CodeF
+            'duree' => $req->duree,
+            'annee' => $req->annee,
+            'stock' => 0,
+            'codef' => $req->codef
         ]);
     }
 
 
     public static function delete(Request $req)
     {
-        Kit::destroy($req->input('CodeKit'));
+        Kit::destroy($req->input('codekit'));
     }
 
 
@@ -99,12 +99,12 @@ class KitService
         $xml->startElement('Kits');
         foreach ($kits as $kit) {
             $xml->startElement('Kit');
-            $xml->writeAttribute('CodeKit', $kit->CodeKit);
-            $xml->writeAttribute('Prix', $kit->prix);
-            $xml->writeAttribute('Annee', $kit->Annee);
-            $xml->writeAttribute('Duree', $kit->Duree);
-            $xml->writeAttribute('Stock', $kit->Stock);
-            $xml->writeAttribute('Fabricant', $kit->CodeF);
+            $xml->writeAttribute('codekit', $kit->codekit);
+            $xml->writeAttribute('prix', $kit->prix);
+            $xml->writeAttribute('annee', $kit->annee);
+            $xml->writeAttribute('duree', $kit->duree);
+            $xml->writeAttribute('stock', $kit->stock);
+            $xml->writeAttribute('fabricant', $kit->codef);
             $xml->endElement();
         }
         $xml->endElement();
@@ -122,9 +122,9 @@ class KitService
         $xmlContent = file_get_contents($xmlFile);
         $xml = simplexml_load_string($xmlContent);
         foreach ($xml->Kit as $kitNode) {
-            $kit = Kit::where('CodeKit', (string) $kitNode['CodeKit'])->firstOrFail();
+            $kit = Kit::where('codekit', (string) $kitNode['codekit'])->firstOrFail();
             $kit->update([
-                'Stock' => (integer) $kitNode['Stock']
+                'stock' => (integer) $kitNode['stock']
             ]);
         }
     }

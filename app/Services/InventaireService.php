@@ -30,13 +30,13 @@ class InventaireService
     {
         $inventaire = Inventaire::create(['creator_id' => auth()->user()->id]);
         foreach ($req->kits as $kit) {
-            Kit::find($kit['CodeKit'])->update([
+            Kit::find($kit['codekit'])->update([
                 'Stock' => $kit['Stock']
             ]);
             Enregistrement::create([
                 'inventaire_id' => $inventaire->id,
-                'CodeKit' => $kit['CodeKit'],
-                'Stock' => $kit['Stock']
+                'codekit' => $kit['codekit'],
+                'stock' => $kit['stock']
             ]);
         }
         return self::find($inventaire->id);

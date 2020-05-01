@@ -15,8 +15,8 @@ class CreateLigneCommandesTable extends Migration
     {
         Schema::create('ligne_commandes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('CodeKit', 30);
-            $table->integer('Qte');
+            $table->string('codekit', 30);
+            $table->integer('qte');
             $table->integer('commande_id')->unsigned()->index();
             $table->foreign('commande_id')->references('id')->on('commandes');
             $table->timestamps();

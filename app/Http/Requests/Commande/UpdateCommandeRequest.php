@@ -27,8 +27,8 @@ class UpdateCommandeRequest extends ApiRequest
             'id' => 'required|exists:commandes',
             'status_id' => 'sometimes|integer|exists:statuses,id',
             'lignes' => 'sometimes|array|nullable',
-            'lignes.*.CodeKit' => 'required_if:lignes|exists:kits,CodeKit',
-            'lignes.*.Qte' => 'required_if:lignes|integer'
+            'lignes.*.codekit' => 'required_if:lignes|exists:kits,codekit',
+            'lignes.*.qte' => 'required_if:lignes|integer'
         ];
     }
 }

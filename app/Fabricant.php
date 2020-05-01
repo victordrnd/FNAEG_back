@@ -8,11 +8,11 @@ class Fabricant extends Model
 {
     protected $table = "fabricants";
 
-    protected $primaryKey = "CodeF";
+    protected $primaryKey = "codef";
 
     public $timestamps = false;
 
-    protected $fillable = ['CodeF','Nom', 'Pays', 'Ville'];
+    protected $fillable = ['codef','nom', 'pays', 'ville'];
     
     public $incrementing = false;
 
@@ -20,6 +20,6 @@ class Fabricant extends Model
 
 
     public function kits(){
-        return $this->hasMany(Kit::class, 'CodeF','CodeF');
+        return $this->hasMany(Kit::class, 'codef','codef');
     }
 }

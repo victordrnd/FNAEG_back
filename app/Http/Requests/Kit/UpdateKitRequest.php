@@ -25,12 +25,12 @@ class UpdateKitRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeKit' => 'string|required|exists:kits,CodeKit',
+            'codekit' => 'string|required|exists:kits,codekit',
             'prix' => 'numeric|required',
-            'Annee' => 'date|required',
-            'Duree' => 'int|required',
-            'Stock' => 'int|required',
-            'CodeF' => 'string|exists:fabricants,CodeF|required'
+            'annee' => 'date|required',
+            'duree' => 'int|required',
+            'stock' => 'int|required',
+            'codef' => 'string|exists:fabricants,codef|required'
         ];
     }
 }

@@ -24,7 +24,7 @@ class CodeFRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeF' => 'string|required|exists:fabricants'
+            'codef' => 'string|required|exists:fabricants'
         ];
     }
 }

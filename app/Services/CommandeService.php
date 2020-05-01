@@ -48,8 +48,8 @@ class CommandeService
         ]);
         foreach ($req->lignes as $ligne) {
             LigneCommande::create([
-                'CodeKit' => $ligne['CodeKit'],
-                'Qte' => $ligne['Qte'],
+                'codekit' => $ligne['codekit'],
+                'qte' => $ligne['qte'],
                 'commande_id' => $commande->id
             ]);
         }
@@ -64,9 +64,9 @@ class CommandeService
         $commande = Commande::findOrFail($req->id);
         if($req->has('lignes')){
             foreach($req->lignes as $ligne){
-                $lignecmd = LigneCommande::where('CodeKit', $ligne['CodeKit'])
+                $lignecmd = LigneCommande::where('codekit', $ligne['codekit'])
                 ->where('commande_id', $commande->id)->first();
-                $lignecmd->update(['Qte' => $ligne['Qte']]);
+                $lignecmd->update(['qte' => $ligne['qte']]);
             }
         }
         if($req->has('status_id')){

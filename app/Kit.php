@@ -8,18 +8,18 @@ class Kit extends Model
 {
     protected $table = "kits";
 
-    protected $primaryKey = "CodeKit";
+    protected $primaryKey = "codekit";
 
     public $timestamps = false;
 
-    protected $fillable = ['CodeKit','prix', 'Annee', 'Duree','Stock', 'CodeF'];
+    protected $fillable = ['codekit','prix', 'annee', 'duree','stock', 'codef'];
     
     public $incrementing = false;
 
     protected $keyType = 'string';
 
     public function fabricant(){
-        return $this->belongsTo(Fabricant::class, "CodeF");
+        return $this->belongsTo(Fabricant::class, "codef");
     }
 
 }

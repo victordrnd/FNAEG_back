@@ -17,10 +17,10 @@ class Inventaire extends Model
             'id' => $this->id,
             'enregistrements' => $this->enregistrements,
             'quantite' => $this->enregistrements->sum(function($ligne){
-                return $ligne->Stock;
+                return $ligne->stock;
             }),
             'prix' => $this->enregistrements->sum(function($ligne){
-                return $ligne->kit->prix * $ligne->Stock;
+                return $ligne->kit->prix * $ligne->stock;
             }),
             'creator' => $this->creator(),
             'created_at' => $this->created_at->toDateTimeString(),

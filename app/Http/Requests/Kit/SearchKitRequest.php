@@ -27,7 +27,7 @@ class SearchKitRequest extends FormRequest
             'min' => 'sometimes|numeric',
             'max' => 'sometimes|numeric',
             'stock' => 'sometimes|boolean',
-            'fabricants.CodeF' => 'sometimes|exists:fabricants,CodeF',
+            'fabricants.codef' => 'sometimes|exists:fabricants,codef',
             'ordersBy' => 'sometimes|array'
         ];
     }

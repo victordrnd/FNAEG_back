@@ -24,11 +24,11 @@ class CreateKitRequest extends ApiRequest
     public function rules()
     {
         return [
-            'CodeKit' => 'string|required|unique:kits',
+            'codekit' => 'string|required|unique:kits',
             'prix' => 'numeric|required',
-            'Annee' => 'date|required',
-            'Duree' => 'int|required',
-            'CodeF' => 'string|exists:fabricants,CodeF|required'
+            'annee' => 'date|required',
+            'duree' => 'int|required',
+            'codef' => 'string|exists:fabricants,codef|required'
         ];
     }
 }

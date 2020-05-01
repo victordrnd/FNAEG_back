@@ -25,8 +25,8 @@ class CreateCommandeRequest extends APiRequest
     {
         return [
             'lignes' => 'required|array',
-            'lignes.*.CodeKit' => 'required|exists:kits,CodeKit',
-            'lignes.*.Qte' => 'required|integer'
+            'lignes.*.codekit' => 'required|exists:kits,codekit',
+            'lignes.*.qte' => 'required|integer'
         ];
     }
 }

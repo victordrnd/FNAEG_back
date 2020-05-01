@@ -20,7 +20,7 @@ class CommandeResource extends JsonResource
             'status_id' => $this->status_id,
             'details' => $this->details,
             'prix' => $this->details->sum(function($ligne){
-                return $ligne->kit->prix * $ligne->Qte;
+                return $ligne->kit->prix * $ligne->qte;
             }),
             'creator' => $this->creator,
             'created_at' => $this->created_at->toDateTimeString(),

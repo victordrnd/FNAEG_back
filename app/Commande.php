@@ -25,7 +25,7 @@ class Commande extends Model
 
     public function getPrixAttribute(){
         return $this->details->sum(function($ligne){
-            return $ligne->kit->prix * $ligne->Qte;
+            return $ligne->kit->prix * $ligne->qte;
         });
     }
 
@@ -37,7 +37,7 @@ class Commande extends Model
             'status_id' => $this->status_id,
             'details' => $this->details,
             'prix' => $this->details->sum(function($ligne){
-                return $ligne->kit->prix * $ligne->Qte;
+                return $ligne->kit->prix * $ligne->qte;
             }),
             'creator' => $this->creator,
             'created_at' => $this->created_at->toDateTimeString(),

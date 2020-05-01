@@ -16,8 +16,8 @@ class CreateEnregistrementsTable extends Migration
         Schema::create('enregistrements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inventaire_id')->unsigned()->index();
-            $table->string('CodeKit', 30);
-            $table->integer('Stock')->nullable();
+            $table->string('codeKit', 30);
+            $table->integer('stock')->nullable();
             $table->foreign('inventaire_id')->references('id')->on('inventaires');
             $table->timestamps();
         });
