@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventairesTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateInventairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventaires', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('libelle');
+            $table->string('slug');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateInventairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaires');
+        Schema::dropIfExists('permissions');
     }
 }

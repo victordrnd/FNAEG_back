@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventairesTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateInventairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventaires', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('email', 191)->unique();
+            $table->string('password');
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateInventairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaires');
+        Schema::dropIfExists('user');
     }
 }

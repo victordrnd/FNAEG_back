@@ -19,7 +19,20 @@ class CommandeService
     public static function paginate(){
 
         return Commande::orderBy('created_at', 'DESC')
-            ->with('status','details', 'details.kit', 'details.kit.fabricant')->paginate()->toArray();
+            ->with('status','details', 'details.kit', 'details.kit.fabricant', 'creator')->paginate()->toArray();
+    }
+
+
+    public static function filter(Request $req){
+        $commandes = (new Commande)->newQuery();
+        if ($req->has('creators')) {
+            if(!empty($req->creators)){
+                $commandes->whereIn('creator_id', $req->creators);
+            }
+        }
+
+        return $commandes->orderBy('created_at', 'DESC')
+        ->with('status','details', 'details.kit', 'details.kit.fabricant', 'creator')->paginate()->toArray();
     }
 
 
@@ -30,7 +43,8 @@ class CommandeService
     public static function create(Request $req)
     {
         $commande = Commande::create([
-            'status_id' => 1
+            'status_id' => 1,
+            'creator_id' => auth()->user()->id
         ]);
         foreach ($req->lignes as $ligne) {
             LigneCommande::create([
@@ -71,7 +85,7 @@ class CommandeService
     }
 
     public static function amount(){
-        $commandes = Commande::where('created_at', '>', new Carbon('first day of this year'))
+        $commandes = Commande::where('created_at', '>',Carbon::now()->startOfYear())
         ->get()->map->format();
         $amount = 0;
         foreach($commandes as $commande){

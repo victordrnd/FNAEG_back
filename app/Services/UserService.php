@@ -13,7 +13,7 @@ class UserService{
             'email'       => $request->email,
             'password'    => Hash::make($request->password),
             'birth_date'  => $request->birth_date,
-            'profil_id' => 3,
+            'role_id' => 1,
             'creator_id'  => auth()->user()->id
           ]);
     }

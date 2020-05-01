@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventairesTable extends Migration
+class AlterTableUserAddSoftdeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateInventairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventaires', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('users', function(Blueprint $table){
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +25,8 @@ class CreateInventairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaires');
+        Schema::table('users', function(Blueprint $table){
+            $table->dropColumn('deleted_at');
+        });
     }
 }

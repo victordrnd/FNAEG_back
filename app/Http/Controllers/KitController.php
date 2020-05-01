@@ -106,6 +106,9 @@ class KitController extends Controller{
         $count = \App\Kit::all()->sum(function($kit){
             return $kit->Stock;
         });
-        return Controller::responseJson(200, "Le count a été retourné", $count);
+        $amount = \App\Kit::all()->sum(function($kit){
+            return $kit->Stock * $kit->prix;
+        }); 
+        return Controller::responseJson(200, "Le count a été retourné", ['count'=>$count, 'amount' => $amount]);
     }
 }

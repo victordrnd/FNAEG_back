@@ -12,7 +12,7 @@ class InventaireService
 {
     public static function getAll()
     {
-        return Inventaire::orderBy('created_at', 'DESC')
+        return Inventaire::orderBy('id', 'DESC')
             ->with('enregistrements')
             ->get()
             ->map->format();
@@ -20,15 +20,15 @@ class InventaireService
 
     public static function paginate()
     {
-        return Inventaire::orderBy('created_at', 'DESC')
-            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
+        return Inventaire::orderBy('id', 'DESC')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant', 'creator')
             ->paginate(5)->toArray();
     }
 
 
     public static function create(Request $req)
     {
-        $inventaire = Inventaire::create();
+        $inventaire = Inventaire::create(['creator_id' => auth()->user()->id]);
         foreach ($req->kits as $kit) {
             Kit::find($kit['CodeKit'])->update([
                 'Stock' => $kit['Stock']
@@ -64,19 +64,19 @@ class InventaireService
             }
         }
         return $inventaires->orderBy('created_at', 'DESC')
-            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant')
+            ->with('enregistrements', 'enregistrements.kit', 'enregistrements.kit.fabricant','creator')
             ->paginate(100)->toArray();
     }
 
 
     public static function stats()
     {
-        return Inventaire::orderBy('created_at', 'desc')
+        return Inventaire::orderBy('id', 'desc')
             ->take(5)->get()->map->format();
     }
 
     public static function last(){
-        return Inventaire::orderBy('created_at', 'DESC')->first()->format();
+        return Inventaire::orderBy('id', 'DESC')->first()->format();
     }
 
     public static function graphs()
@@ -98,7 +98,6 @@ class InventaireService
             });
             $stockCount[$key] = $sum;
         }
-
         return $stockCount;
     }
 }
